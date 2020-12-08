@@ -31,4 +31,15 @@ border: 1px solid black;
   font-weight: bold;
 }
 
+.container ul {
+  background: white;
+  padding: 20px;
+  height: 200px;
+  width: 300px;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  border: 1px solid black;
+}
+
 
