@@ -26,9 +26,9 @@ function WishList () {
            <h1>MY WISHLIST</h1>
             
             <ul>
-                <li>Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
+                <div>Coffee</div>
+                <div>Tea</div>
+                <div>Milk</div>
 
             </ul>
             
