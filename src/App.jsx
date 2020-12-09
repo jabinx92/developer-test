@@ -10,7 +10,6 @@ function WishList () {
     const [name, setName] = useState("");
     const [count, setCount] = useState(0);
     const [addItem, setAddItem] = useState([])
-    const [item, setItem] = useState({})
 
     const greenButton = {
         background: "#90ee90",
@@ -18,27 +17,29 @@ function WishList () {
         height: "40px",
         width: "100px",
         margin: "0px 50px 25px 150px",
-
     }
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setItem({
-            id: count,
-            name: name
-        });
-        setAddItem([...addItem, item])
-        console.log(addItem)
+
+        if (name == "") return alert("Item name is required");
+        
+        setAddItem([...addItem, {id:count, name: name}])
         setCount(count + 1)
         setName("")
-        setItem({})
+        console.log(addItem)
     };
 
     const clearForm = () => {
-        setName("")
+        setAddItem([])
         console.log(name)
         alert('Your wishlist has been submitted')
+    }
+
+    const clearId = (id) => {
+        const newItems = addItem.filter((item) => item.id !== id);
+        setAddItem(newItems);
     }
 
     return (
@@ -46,11 +47,14 @@ function WishList () {
            <h1>MY WISHLIST</h1>
             
             <ul>
-                {/* {addItem.map((item, index)=> {
+                { addItem.length ? 
+                addItem.map((item, index)=> {
                     return (
-                    <div>{item.add}</div>
+                    <div onClick={() => {
+                        clearId(item.id)
+                    }}>{item.name}</div>
                     )
-                })} */}
+                }) : <></>}
             </ul>
             
 
@@ -58,7 +62,7 @@ function WishList () {
                 <input type="text" value={name} onChange={e => setName(e.target.value)} />
                 <input style={greenButton} type="submit" value="Add"></input>
             </form>
-            <button onClick={() => {dispatch()}}>Submit</button>
+            <button onClick={() => {clearForm()}}>Submit</button>
         </div>
     )
 } 
