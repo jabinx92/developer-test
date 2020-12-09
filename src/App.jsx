@@ -20,11 +20,15 @@ function WishList () {
     }
 
 
-    const handleSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
         if (name == "") return alert("Item name is required");
-        
+        if (addItem.some(item => item.name.toLowerCase() === name)){
+            alert('This item has already been added')
+            return
+        }
+
         setAddItem([...addItem, {id:count, name: name}])
         setCount(count + 1)
         setName("")
@@ -43,6 +47,7 @@ function WishList () {
     }
 
     return (
+        
         <div className="container">
            <h1>MY WISHLIST</h1>
             
@@ -50,7 +55,7 @@ function WishList () {
                 { addItem.length ? 
                 addItem.map((item, index)=> {
                     return (
-                    <div onClick={() => {
+                    <div style={{cursor: "pointer"}} onClick={() => {
                         clearId(item.id)
                     }}>{item.name}</div>
                     )
@@ -58,7 +63,7 @@ function WishList () {
             </ul>
             
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onSubmit}>
                 <input type="text" value={name} onChange={e => setName(e.target.value)} />
                 <input style={greenButton} type="submit" value="Add"></input>
             </form>
