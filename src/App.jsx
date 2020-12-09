@@ -23,10 +23,11 @@ function WishList () {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        if (name == "") return alert("Item name is required");
+
+        if (name === "") return alert("Item name is required");
         if (addItem.some(item => item.name.toLowerCase() === name)){
             alert('This item has already been added')
-            return
+            return setName("")
         }
 
         setAddItem([...addItem, {id:count, name: name}])
@@ -64,7 +65,7 @@ function WishList () {
             
 
             <form onSubmit={onSubmit}>
-                <input type="text" value={name} onChange={e => setName(e.target.value)} />
+                <input type="text" autoFocus value={name} onChange={e => setName(e.target.value)}/>
                 <input style={greenButton} type="submit" value="Add"></input>
             </form>
             <button onClick={() => {clearForm()}}>Submit</button>
