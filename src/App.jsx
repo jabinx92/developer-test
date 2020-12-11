@@ -27,7 +27,7 @@ function WishList () {
         event.preventDefault();
 
         if(todos){
-            if (todos.some(item => item.name.toLowerCase() === name)){
+            if (todos.some(item => item.name === name)){
                 alert('This item has already been added')
                 return setName("")
             }
