@@ -1,27 +1,20 @@
 import {
   ADD_ITEM,
   DELETE_ITEM,
+  CLEAR_ITEM,
 } from './actions';
 
-const INITIAL_STATE = {
-  wishList: [],
-};
+const initialState = [];
 
 // Complete the three cases below
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM:
-      return {
-        wishList: action.payload,
-      };
+      return [...state, action.payload];
     case DELETE_ITEM:
-      return {
-        wishList: action.payload,
-      };
-    default:
-      return {
-        wishList: action.payload,
-      };
+      return [...state.filter(item => item.id !== action.payload)]
+    case CLEAR_ITEM:
+      return [action.payload];
   }
 };
 

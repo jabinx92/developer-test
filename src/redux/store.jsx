@@ -4,7 +4,7 @@ import reducer from './reducer';
 export const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 //Display it in the console log
-store.subscribe(() => console.log(store.getState()))
+store.subscribe(() => console.log("Wishlist updated!",store.getState()))
 
 //Dispatch
 // store.dispatch(addItem(hmm))

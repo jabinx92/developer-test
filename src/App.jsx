@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import {addItem, deleteItem} from './redux/actions';
+import {addItem, deleteItem, clearItem} from './redux/actions';
 import './index.css'
 
 
 function WishList () {
+    const todos = useSelector(state => state);
+
+
     const dispatch = useDispatch();
 
     const [name, setName] = useState("");
     const [count, setCount] = useState(0);
-    const [addItem, setAddItem] = useState([])
+    // const [addItem, setAddItem] = useState([])
 
     const greenButton = {
         background: "#90ee90",
@@ -23,28 +26,29 @@ function WishList () {
     const onSubmit = (event) => {
         event.preventDefault();
 
-
-        if (name === "") return alert("Item name is required");
-        if (addItem.some(item => item.name.toLowerCase() === name)){
-            alert('This item has already been added')
-            return setName("")
+        if(todos){
+            if (todos.some(item => item.name.toLowerCase() === name)){
+                alert('This item has already been added')
+                return setName("")
+            }
         }
-
-        setAddItem([...addItem, {id:count, name: name}])
-        setCount(count + 1)
-        setName("")
-        console.log(addItem)
+        
+        
+        if (name !== "") {
+            dispatch(addItem(name));
+            setName("")
+        } else {
+            alert('This item can not be empty.')
+        }
     };
 
     const clearForm = () => {
-        setAddItem([])
-        console.log(name)
-        alert('Your wishlist has been submitted')
+        dispatch(clearItem([]))
+        setName("")
     }
 
     const clearId = (id) => {
-        const newItems = addItem.filter((item) => item.id !== id);
-        setAddItem(newItems);
+        dispatch(deleteItem(id));
     }
 
     return (
@@ -53,8 +57,8 @@ function WishList () {
            <h1>MY WISHLIST</h1>
             
             <ul>
-                { addItem.length ? 
-                addItem.map((item, index)=> {
+                { todos ? 
+                todos.map((item, index)=> {
                     return (
                     <div style={{cursor: "pointer"}} onClick={() => {
                         clearId(item.id)
@@ -68,7 +72,9 @@ function WishList () {
                 <input type="text" autoFocus value={name} onChange={e => setName(e.target.value)}/>
                 <input style={greenButton} type="submit" value="Add"></input>
             </form>
-            <button onClick={() => {clearForm()}}>Submit</button>
+            <button onClick={() => {
+                clearForm()
+                }}>Submit</button>
         </div>
     )
 } 
