@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import {connect, useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import {addItem, deleteItem, clearItem} from './redux/actions';
 import './index.css'
 
 
 function WishList () {
     const todos = useSelector(state => state);
-
-
     const dispatch = useDispatch();
-
     const [name, setName] = useState("");
-    const [count, setCount] = useState(0);
-    // const [addItem, setAddItem] = useState([])
 
     const greenButton = {
         background: "#90ee90",
@@ -21,7 +16,6 @@ function WishList () {
         width: "100px",
         margin: "0px 50px 25px 150px",
     }
-
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -32,7 +26,6 @@ function WishList () {
                 return setName("")
             }
         }
-        
         
         if (name !== "") {
             dispatch(addItem(name));
@@ -52,10 +45,8 @@ function WishList () {
     }
 
     return (
-        
         <div className="container">
            <h1>MY WISHLIST</h1>
-            
             <ul>
                 { todos ? 
                 todos.map((item, index)=> {
@@ -66,8 +57,6 @@ function WishList () {
                     )
                 }) : <></>}
             </ul>
-            
-
             <form onSubmit={onSubmit}>
                 <input type="text" autoFocus value={name} onChange={e => setName(e.target.value)}/>
                 <input style={greenButton} type="submit" value="Add"></input>
